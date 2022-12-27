@@ -13,9 +13,9 @@ const initialState: RepositoriesState = {
   data: []
 };
 
-export const searchByTerm = createAsyncThunk(
+export const searchByTerm = createAsyncThunk<string[], string>(
   'repositories/searchByTerm',
-  async (term: string): Promise<string[]> => {
+  async (term): Promise<string[]> => {
     const { data } = await axios.get('https://registry.npmjs.org/-/v1/search', {
       params: {
         text: term
