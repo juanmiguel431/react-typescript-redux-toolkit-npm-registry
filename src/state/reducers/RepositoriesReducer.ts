@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios/index';
+import axios from 'axios';
 
 interface RepositoriesState {
   loading: boolean;
