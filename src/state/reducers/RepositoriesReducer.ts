@@ -59,7 +59,7 @@ export const repositoriesSlice = createSlice({
 });
 
 export const updateObject = <T extends {}>(target: T, source: T): T => {
-  return Object.assign<T, T>(target, source);
+  return Object.assign(target, source);
 }
 
 export const {} = repositoriesSlice.actions;
