@@ -44,16 +44,26 @@ export const repositoriesSlice = createSlice({
   reducers: { },
   extraReducers: (builder) => {
     builder.addCase(searchByTerm.pending, (state) => {
-      state = { loading: true, error: null, data: [] };
+      state.loading = true;
+      state.error = null;
+      state.data = [];
+      // state = { loading: true, error: null, data: [] };
     });
     builder.addCase(searchByTerm.rejected, (state, action) => {
-      state = { loading: false, error: 'This is supposed to be an error.' , data: [] };
+      state.loading = false;
+      state.error = 'This is supposed to be an error.';
+      state.data = [];
+      // state = { loading: false, error: 'This is supposed to be an error.' , data: [] };
     });
     builder.addCase(searchByTerm.fulfilled, (state, action) => {
-      state = { loading: false, error: null, data: action.payload };
+      state.loading = false;
+      state.error = null;
+      state.data = action.payload;
+      // state = { loading: false, error: null, data: action.payload };
     });
   }
 });
 
-// export const {  } = repositoriesSlice.actions;
+export const {  } = repositoriesSlice.actions;
+
 export const repositoriesReducer = repositoriesSlice.reducer;
