@@ -41,29 +41,27 @@ export const searchByTerm = createAsyncThunk<string[], string>(
 export const repositoriesSlice = createSlice({
   name: 'repositories',
   initialState: initialState,
-  reducers: { },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(searchByTerm.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-      state.data = [];
-      // state = { loading: true, error: null, data: [] };
+      const newState = { ...state, loading: true, error: null, data: [] };
+      updateObject(state, newState);
     });
     builder.addCase(searchByTerm.rejected, (state, action) => {
-      state.loading = false;
-      state.error = 'This is supposed to be an error.';
-      state.data = [];
-      // state = { loading: false, error: 'This is supposed to be an error.' , data: [] };
+      const newState = { ...state, loading: false, error: `Error: ${action.error.message}`, data: [] };
+      updateObject(state, newState);
     });
     builder.addCase(searchByTerm.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.data = action.payload;
-      // state = { loading: false, error: null, data: action.payload };
+      const newState = { ...state, loading: false, error: null, data: action.payload };
+      updateObject(state, newState);
     });
   }
 });
 
-export const {  } = repositoriesSlice.actions;
+export const updateObject = <T extends {}>(target: T, source: T): T => {
+  return Object.assign<T, T>(target, source);
+}
+
+export const {} = repositoriesSlice.actions;
 
 export const repositoriesReducer = repositoriesSlice.reducer;
