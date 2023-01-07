@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit'
+import { searchByTerm } from '../action-creators';
 
 interface RepositoriesState {
   loading: boolean;
@@ -12,31 +12,6 @@ const initialState: RepositoriesState = {
   error: null,
   data: []
 };
-
-interface Response {
-  objects: [
-    {
-      package: {
-        name: string;
-      }
-    }
-  ]
-}
-
-export const searchByTerm = createAsyncThunk<string[], string>(
-  'repositories/searchByTerm',
-  async (term): Promise<string[]> => {
-    const { data }: { data: Response } = await axios.get('https://registry.npmjs.org/-/v1/search', {
-      params: {
-        text: term
-      }
-    });
-
-    return data.objects.map((p) => {
-      return p.package.name;
-    });
-  }
-);
 
 export const repositoriesSlice = createSlice({
   name: 'repositories',
@@ -62,6 +37,6 @@ export const updateObject = <T extends {}>(target: T, source: T): T => {
   return Object.assign(target, source);
 }
 
-export const {} = repositoriesSlice.actions;
+// export const {} = repositoriesSlice.actions;
 
 export const repositoriesReducer = repositoriesSlice.reducer;
